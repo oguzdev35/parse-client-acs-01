@@ -1,0 +1,76 @@
+###
+POST http://localhost:3000/createperson HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "personID": "123456",
+    "name": "Oguz",
+    "title": "student"
+}
+
+###
+POST http://localhost:3000/updateperson HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "personID": "123456",
+    "doors": ["4443", "233", "544"]
+}
+
+###
+POST http://localhost:3000/createdoor HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "doorName": "B",
+    "doorID": "4443"
+}
+
+###
+POST http://localhost:3000/updatedoor HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "doorName": "F",
+    "doorID": "4443"
+}
+
+###
+GET http://localhost:3000/getdoors HTTP/1.1
+Accept: application/json
+
+###
+GET http://localhost:3000/getpersons HTTP/1.1
+Accept: application/json
+
+###
+POST  http://localhost:3000/deletedoor HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "doorID": "132"
+}
+
+###
+POST  http://localhost:3000/deleteperson HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "personID": "1234"
+}
+
+###
+POST http://localhost:3000/access HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "personID": "123456",
+    "doorID": "12"
+}
