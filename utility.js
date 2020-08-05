@@ -27,6 +27,28 @@ const DoorCreator = (Parse) => {
     return _DOOR;
 }
 
+const LogsObjectCreator = (personId, personName, lastaccess, access) => {
+    return ({personId, personName, lastaccess, access})
+}
+
+const LogsSendBackend = (Parse, doorID, logsObject) => {
+    const Door = Parse.Object.extend("Door");
+    const query = new Parse.Query(Door);
+
+    query.equalTo("doorID", doorID);
+
+    query.find()
+        .then( doors => {
+            const door = doors[0];
+
+            door.add("logs", logsObject)
+
+            door.save().then( doc => "logs has been send to the backend", 
+                err => console.log(err.message))
+        }, err => console.log(err.message))
+
+}
+
 module.exports = {
-    PersonCreator, DoorCreator
+    PersonCreator, DoorCreator, LogsObjectCreator, LogsSendBackend
 }

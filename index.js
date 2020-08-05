@@ -5,7 +5,7 @@ const cors = require('cors')
 const app = express()
 
 const {
-    PersonCreator, DoorCreator
+    PersonCreator, DoorCreator, LogsObjectCreator, LogsSendBackend
 } = require('./utility');
 
 app.use(cors())
@@ -59,7 +59,6 @@ app.get('/getpersons', function(req, res){
 
 app.post('/updateperson', function(req, res){
     const { personID, doors, name, title} = req.body;
-    console.log(doors)
 
     const Person = Parse.Object.extend("Person");
     const query = new Parse.Query(Person);
@@ -163,16 +162,26 @@ app.post('/access', function (req, res) {
   const { personID, doorID } = req.body;
 
   const Person = Parse.Object.extend("Person");
-  const query = new Parse.Query(Person);
+  const query1 = new Parse.Query(Person);
+  const query2 = new Parse.Query(Person);
 
-  query.equalTo("personID", personID);
-  query.equalTo("doors", doorID);
+  query1.equalTo("personID", personID);
+  query1.equalTo("doors", doorID);
 
-  query.find()
-    .then( person =>{
-        if(person.length !== 0){
+  query1.find()
+    .then( persons => {
+        if(persons.length !== 0){
+            const person = persons[0];
+            LogsSendBackend(Parse, doorID, LogsObjectCreator(person.get('personID'), person.get('name'), (new Date()).toDateString(), true))
             res.json({"response": "authorized"})
         } else {
+            query2.equalTo("personID", personID)
+            query2.find()
+                .then( persons => {
+                    const person = persons[0];
+                    LogsSendBackend(Parse, doorID, LogsObjectCreator(person.get('personID'), person.get('name'), (new Date()).toDateString(), false))
+                }, err => console.log(err.message))
+            
             res.json({"response": "not-authorized"})
         }
         
