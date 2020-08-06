@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Parse = require('parse/node');
 const {
     DoorCreator, PersonCreator
@@ -23,7 +24,7 @@ const createdoor = (req, res) => {
 }
 
 const getdoors = (req, res) => {
-    const Doors = Parse.Object.extend('Door');
+    const Doors = Parse.Object.extend(process.env.DOOR_CLASSNAME);
     const query = new Parse.Query(Doors);
 
     query.find()
@@ -33,7 +34,7 @@ const getdoors = (req, res) => {
 }
 
 const getpersons = (req, res) => {
-    const Person = Parse.Object.extend('Person');
+    const Person = Parse.Object.extend(process.env.PERSON_CLASSNAME);
     const query = new Parse.Query(Person);
 
     query.find()
@@ -46,7 +47,7 @@ const getpersons = (req, res) => {
 const updateperson = (req, res) => {
     const { personID, doors, name, title} = req.body;
 
-    const Person = Parse.Object.extend("Person");
+    const Person = Parse.Object.extend(process.env.PERSON_CLASSNAME);
     const query = new Parse.Query(Person);
 
     query.equalTo("personID", personID);
@@ -73,7 +74,7 @@ const updateperson = (req, res) => {
 const updatedoor = (req, res) => {
     const {doorName, doorID} = req.body;
 
-    const Door = Parse.Object.extend('Door');
+    const Door = Parse.Object.extend(process.env.DOOR_CLASSNAME);
     const query = new Parse.Query(Door);
 
     query.equalTo("doorID", doorID);
@@ -98,7 +99,7 @@ const updatedoor = (req, res) => {
 const deletedoor = (req, res) => {
     const {doorID} = req.body;
 
-    const Door = Parse.Object.extend('Door');
+    const Door = Parse.Object.extend(process.env.DOOR_CLASSNAME);
     const query = new Parse.Query(Door);
 
     query.equalTo("doorID", doorID);
@@ -122,7 +123,7 @@ const deletedoor = (req, res) => {
 const deleteperson = (req, res) => {
     const {personID} = req.body;
 
-    const Person = Parse.Object.extend('Person');
+    const Person = Parse.Object.extend(process.env.PERSON_CLASSNAME);
     const query = new Parse.Query(Person);
 
     query.equalTo("personID", personID);

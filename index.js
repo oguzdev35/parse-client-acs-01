@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Parse = require('parse/node')
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -14,8 +15,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // Parse configuration
-Parse.initialize("myAppID", null, "myMasterKey");
-Parse.serverURL = "http://localhost:2000/parse";
+Parse.initialize(process.env.APPID, null, process.env.MASTERKEY);
+Parse.serverURL = process.env.SERVERURL;
 
 // localmachine route
 app.use('/', localMachineRoute);

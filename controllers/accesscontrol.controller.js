@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Parse = require('parse/node');
 
 const {
@@ -8,7 +9,7 @@ const {
 const access = (req, res) => {
     const { personID, doorID } = req.body;
   
-    const Person = Parse.Object.extend("Person");
+    const Person = Parse.Object.extend(process.env.PERSON_CLASSNAME);
     const query1 = new Parse.Query(Person);
     const query2 = new Parse.Query(Person);
   
