@@ -21,7 +21,8 @@ app.use('/', localMachineRoute);
 app.use('/', remoteMachineRoute);
 
 
+const port = process.env.PORT || 3000;
 
-app.listen(3000, err => {
-    console.log('server established at 3000 port.')
+app.listen(port, err => {
+    console.log(`Server established at port ${port}`)
 })
