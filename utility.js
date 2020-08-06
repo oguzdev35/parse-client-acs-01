@@ -49,6 +49,11 @@ const LogsSendBackend = (Parse, doorID, logsObject) => {
 
 }
 
+const LastAccessConstructor = () => ({
+    string: (new Date()).toUTCString(),
+    number: Date.now()
+})
+
 module.exports = {
-    PersonCreator, DoorCreator, LogsObjectCreator, LogsSendBackend
+    PersonCreator, DoorCreator, LogsObjectCreator, LogsSendBackend, LastAccessConstructor
 }

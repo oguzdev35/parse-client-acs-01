@@ -5,7 +5,8 @@ const cors = require('cors')
 const app = express()
 
 const {
-    PersonCreator, DoorCreator, LogsObjectCreator, LogsSendBackend
+    PersonCreator, DoorCreator, LogsObjectCreator, LogsSendBackend,
+    LastAccessConstructor
 } = require('./utility');
 
 app.use(cors())
@@ -172,14 +173,14 @@ app.post('/access', function (req, res) {
     .then( persons => {
         if(persons.length !== 0){
             const person = persons[0];
-            LogsSendBackend(Parse, doorID, LogsObjectCreator(person.get('personID'), person.get('name'), (new Date()).toDateString(), true))
+            LogsSendBackend(Parse, doorID, LogsObjectCreator(person.get('personID'), person.get('name'), LastAccessConstructor(), true))
             res.json({"response": "authorized"})
         } else {
             query2.equalTo("personID", personID)
             query2.find()
                 .then( persons => {
                     const person = persons[0];
-                    LogsSendBackend(Parse, doorID, LogsObjectCreator(person.get('personID'), person.get('name'), (new Date()).toDateString(), false))
+                    LogsSendBackend(Parse, doorID, LogsObjectCreator(person.get('personID'), person.get('name'), LastAccessConstructor(), false))
                 }, err => console.log(err.message))
             
             res.json({"response": "not-authorized"})
