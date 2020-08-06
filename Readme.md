@@ -12,6 +12,9 @@ Tetik mekanizmasından iki adet verinin geleceğini varsaydım:
 
 
 # Çalıştırılması
+
+.env dosyası sisteme uygun modifiye edilir. Daha sonra:
+
 yarn install --frozen-lockfile
 yarn start
 
